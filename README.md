@@ -70,11 +70,61 @@ En este video puedes ver un ejemplo:
 
 [![Who Did This? Track Code Recommendations With Amazon CodeWhisperer](imagenes/video_1.jpeg)](https://www.youtube.com/watch?v=qu67bvH2Y08)
 
+> 🚨 **Atención** Amazon CodeWhisperer te entrega sugerencias de código que no necesariamente esten 100% correctos, debes revisarlo y si es necesario modificarlo. 
+
 1 - Crear el Amazon s3 Bucket: 
 
 `#cdk code to amazon s3 bucket named "video-storage"`
 
 ![crear amazon s3 bucket](imagenes/create-amazon-s3-bucket.gif)
+
+2 - Crear el Amazon SNS Topic: 
+
+`#cdk code to sns topic named "scan-video-topic"`
+
+3 - Crear el Amazon IAM Role para ejecutar Amazon Rekognition: 
+
+`#cdk code to role to grant to assume amazon rekognition`
+
+4 - Crear agregar al Role anterior la politica que permite que Amazon Rekognition pueda publicar en el SNS Topic:
+
+`#cdk code to add a policy to the role to allow rekognition to publish sns`
+
+5 - Crear la Amazon Lambda Function encargada de invocar a rekogntion (el código de esta se crea aparte en `/lambdas_code/lambda_invokes_rekognition`)
+
+`#cdk code to create a lambda function to scan the video`
+
+6 - Permisos requeridos para lambda_invokes_rekognition Lambda Function
+
+`#cdk code to add a permission to the lambda function to allow it to read from the video storage`
+
+
+`#cdk code to add a permission to the lambda function to invoke amazon rekognition content moderation`
+
+7 - Crear la Amazon Lambda Function encargada de procesar el resultado de amazon rekogntion (el código de esta se crea aparte en `/lambdas_code/lambda_process_rekognition`)
+
+`#cdk code to create a lambda function to process result of content moderation`
+
+6 - Permisos requeridos para lambda_process_rekognition Lambda Function
+
+`#cdk code to add a permission to the lambda function to allow it to read from the video storage`
+
+`#cdk code to add a permission to the lambda function to invoke amazon rekognition content moderation`
+
+`#cdk code to add a LambdaSubscription`
+
+Cuando finalices deberías ver algo como en [scanvideo_with_codewhisperer_stack.py](/scanvideo-with-codewhisperer/scanvideo_with_codewhisperer/scanvideo_with_codewhisperer_stack.py)
+
+
+### Paso 4: Crear La Aplicación: 
+
+
+
+
+
+
+
+
 
 
 
