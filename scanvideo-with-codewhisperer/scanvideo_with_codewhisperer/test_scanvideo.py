@@ -2,10 +2,14 @@ from aws_cdk import (
     Stack,
     RemovalPolicy,
     aws_s3 as s3,
-
+    aws_sns as sns,
+    aws_iam as iam,
+    aws_lambda as lambda_
+   
     )
 
 from constructs import Construct
+from aws_cdk import aws_lambda as lambda_
 
 class ScanvideoWithCodewhispererStack(Stack):
 
@@ -31,7 +35,59 @@ class ScanvideoWithCodewhispererStack(Stack):
             resources=[scan_video_topic.topic_arn]
         ))
 
+        #cdk code to create a lambda function to scan the video
+        scan_video_lambda = lambda_.Function(self, "lambda_invokes_Rekognition",
+                                              runtime=lambda_.Runtime.PYTHON_3_8,
+                                              handler="lambda_function.lambda_handler",
+                                              code=lambda_.Code.from_asset("./lambdas_code/lambda_invokes_rekognition"),description = "Invokes Amazon Rekognition "
+                                              environment={
+                                                  "SNS_TOPIC_ARN": scan_video_topic.topic_arn,
+                                                  "VIDEO_STORAGE_BUCKET": video_storage.bucket_name,
+                                                  "REKOGNITION_ROLE_ARN": rekognition_role.role_arn
+                                                  }
+        )
+
+        #cdk code to add a permission to the lambda function to allow it to read from the video storage
+        video_storage.grant_read(scan_video_lambda)
+        #cdk code to add a permission to the lambda function to invoke amazon rekognition content moderation 
+        rekognition_role.add_to_policy(iam.PolicyStatement(
+            actions=["rekognition:DetectModerationLabels", "rekognition:DetectLabels"],
+            resources=["*"]
+            ))
         
+        #cdk code to amazon s3 bucket event to trigger lambda function LambdaDestination
+        video_storage.add_event_notification(s3.EventType.OBJECT_CREATED,
+                                              s3.LambdaDestination(scan_video_lambda),
+                                              prefix="videos/", suffix=".mp4") 
+        
+        #cdk code to create a lambda function to process result of content moderation
+        process_result_lambda = lambda_.Function(self, "lambda_process_rekognition",
+                                                  runtime=lambda_.Runtime.PYTHON_3_8,
+                                                  handler="lambda_function.lambda_handler",description = "Process Amazon Rekognition "
+                                                  code=lambda_.Code.from_asset("./lambdas_code/lambda_process_rekognition"),
+                                                  environment={
+                                                      "SNS_TOPIC_ARN": scan_video_topic.topic_arn,
+                                                      "VIDEO_STORAGE_BUCKET": video_storage.bucket_name
+                                                      }
+                                                      )
+        #cdk code to add a permission to the lambda function to allow it to read from the video storage
+        video_storage.grant_read(process_result_lambda)
+        #cdk code to add a permission to the lambda function to invoke amazon rekognition content moderation
+        rekognition_role.add_to_policy(iam.PolicyStatement(
+            actions=["rekognition:DetectModerationLabels", "rekognition:DetectLabels"],
+            resources=["*"]
+            ))
+        
+       #cdk code to add a LambdaSubscription 
+        scan_video_topic.add_subscription(sns.LambdaSubscription(process_result_lambda))
+
+        
+
+
+
+
+
+
 
         
 
