@@ -298,7 +298,7 @@ def get_content_moderation(job_id, rekognition_client):
 
 ```python
 def upload_to_s3(bucket, key, response,s3_client):
-    s3_client.Object(bucket, key).put(Body=json.dumps(response))
+    s3_client.put_object(bucket, key).put(Body=json.dumps(response))
     return response
 ```
 

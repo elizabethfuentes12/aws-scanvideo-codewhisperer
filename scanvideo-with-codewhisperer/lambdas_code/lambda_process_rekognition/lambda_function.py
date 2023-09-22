@@ -4,13 +4,15 @@ import json
 import os
 
 bucket_name = os.environ.get('BUCKET_NAME')
+rekognition_client = boto3.client('rekognition')
+s3_client = boto3.client('s3')
 
 def get_content_moderation(job_id, rekognition_client):
     response = rekognition_client.get_content_moderation(JobId=job_id)
     return response
 #upload response to s3 bucket
 def upload_to_s3(bucket, key, response,s3_client):
-    s3_client.Object(bucket, key).put(Body=json.dumps(response))
+    s3_client.put_object(Bucket=bucket, Key=key, Body=json.dumps(response))
     return response
 #get jobid from event sns message
 def get_jobid(event):
@@ -26,10 +28,10 @@ def get_object_name(event):
 def lambda_handler(event, context):
     jobid = get_jobid(event)
     object_name = get_object_name(event)
-    filename = object_name.replace(".mp4", ".json")
+    filename = object_name.split("/")[-1].replace(".mp4", ".json")
+    key = "moderation-file/"+filename
     print(jobid)
-    rekognition_client = boto3.client('rekognition')
     response = get_content_moderation(jobid, rekognition_client)
     print(response)
-    upload_to_s3(bucket_name, filename, response,boto3.client('s3'))
+    upload_to_s3(bucket_name, key, response,s3_client)
     return response
