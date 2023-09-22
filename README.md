@@ -74,7 +74,7 @@ En este video puedes ver un ejemplo:
 
 `#cdk code to amazon s3 bucket named "video-storage"`
 
-![crear amazon s3 bucket](imagenes/paso1.mp4)
+![crear amazon s3 bucket](imagenes/create-amazon-s3-bucket.gif)
 
 
 
