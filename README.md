@@ -210,7 +210,7 @@ process_result_lambda.add_to_role_policy(iam.PolicyStatement(
 `#cdk code to add a LambdaSubscription`
 
 ```python
-scan_video_topic.add_subscription(subscriptions.LambdaSubscription(process_result_lambda))
+scan_video_topic.add_subscription(subs.LambdaSubscription(process_result_lambda))
 ```
 
 9 - Asegura de importar todas las librerias necesarias. 
@@ -227,7 +227,7 @@ from aws_cdk import (
     aws_iam as iam,
     aws_lambda as lambda_,
     aws_s3_notifications,
-    aws_sns_subscriptions as subscriptions,
+    aws_sns_subscriptions as subs,
   )
 ```
 
@@ -276,7 +276,7 @@ def lambda_handler(event, context):
     
 ```
 
-Aca puedes ver el código final: [lambda_invokes_rekognition/lambda_function.py](/aws-scanvideo-codewhisperer/scanvideo-with-codewhisperer/lambdas_code/lambda_invokes_rekognition/lambda_function.py)
+Aca puedes ver el código final: [lambda_invokes_rekognition/lambda_function.py](/scanvideo-with-codewhisperer/lambdas_code/lambda_invokes_rekognition/lambda_function.py)
 
 ### Paso 5: Código de la Amazon Lambda Function `lambda_process_rekognition`: 
 
@@ -335,7 +335,7 @@ def lambda_handler(event, context):
 >👾 Recuerda sumar al código el bucket name --> `bucket_name = os.environ.get('BUCKET_NAME')`
 
 
-Aca puedes ver el código final: [lambda_process_rekognition/lambda_function.py](/aws-scanvideo-codewhisperer/scanvideo-with-codewhisperer/lambdas_code/lambda_process_rekognition/lambda_function.py)
+Aca puedes ver el código final: [lambda_process_rekognition/lambda_function.py](/scanvideo-with-codewhisperer/lambdas_code/lambda_process_rekognition/lambda_function.py)
 
 ### Paso 6: Deploy y prueba!
 
