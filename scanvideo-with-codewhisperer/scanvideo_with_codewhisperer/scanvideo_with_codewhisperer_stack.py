@@ -26,7 +26,7 @@ class ScanvideoWithCodewhispererStack(Stack):
 
         
         #cdk code to amazon s3 bucket named "video-storage"
-        my_bucket = s3.Bucket(self, "video-storage",
+        bucket = s3.Bucket(self, "video-storage",
                         versioned=False,
                         removal_policy=RemovalPolicy.DESTROY,
                         auto_delete_objects=True)
