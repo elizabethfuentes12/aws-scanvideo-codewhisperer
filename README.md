@@ -347,6 +347,8 @@ cdk deploy
 
 🤖 Listo!! creaste aplicación de Moderacion de video 👨🏻⏯️ 🔫 🚬! 
 
+Te dejo un vide para que la pruebes rápidamente --> [Video](imagenes/moderation-video.mp4)
+
 ### Paso 7: Elimina la aplicación.
 
 Para eliminar todo lo creado anteriormente solo debes ingresar el siguiente comando: 
