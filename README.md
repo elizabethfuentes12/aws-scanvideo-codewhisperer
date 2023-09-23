@@ -357,6 +357,13 @@ Para eliminar todo lo creado anteriormente solo debes ingresar el siguiente coma
 cdk destroy
 ```
 
+### 🚀 Sigue aprendiendo: 
+
+- [Mastering the art of CodeWhisperer 🪄](https://www.youtube.com/watch?v=sFh3_cMUrMk&list=PLDqi6CuDzubxzL-yIqgQb9UbbceYdKhpK)
+- [Get Started](https://aws.amazon.com/es/codewhisperer/resources/)
+- [Dive deep with a workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/a33a5d69-1417-4d5f-acc9-ae5c7fba665b/en-US)
+- [Learn how to build an event-driven  serverless app](https://youtu.be/8vkHLnhIFGA?si=PQQjt4egDioq22YN)
+
 ----
 
 # 🚨¿Te gusto? 👩🏻‍💻 ¿Tienes comentarios?🎤 cuéntamelo todo --> [acá](https://www.pulse.aws/survey/LMJI72HJ)
