@@ -61,7 +61,7 @@ class ScanvideoWithCodewhispererStack(Stack):
 
         #cdk code to create a lambda function to scan the video
         scan_video_lambda = lambda_.Function(self, "lambda_invokes_Rekognition",
-                                              runtime=lambda_.Runtime.PYTHON_3_8,
+                                              runtime=lambda_.Runtime.PYTHON_3_13,
                                               handler="lambda_function.lambda_handler",
                                               code=lambda_.Code.from_asset("./lambdas_code/lambda_invokes_rekognition"),
                                               timeout=Duration.seconds(300),description = "Invokes Amazon Rekognition",
@@ -99,7 +99,7 @@ class ScanvideoWithCodewhispererStack(Stack):
         
         #cdk code to create a lambda function to process result of content moderation
         process_result_lambda = lambda_.Function(self, "lambda_process_rekognition",
-                                                  runtime=lambda_.Runtime.PYTHON_3_8,
+                                                  runtime=lambda_.Runtime.PYTHON_3_13,
                                                   handler="lambda_function.lambda_handler",
                                                   timeout=Duration.seconds(300),description = "Process Amazon Rekognition ",
                                                   code=lambda_.Code.from_asset("./lambdas_code/lambda_process_rekognition"),

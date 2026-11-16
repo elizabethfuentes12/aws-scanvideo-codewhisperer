@@ -120,7 +120,7 @@ rekognition_role.add_to_policy(iam.PolicyStatement(
 `#cdk code to create a lambda function to scan the video`
 ```python
 scan_video_lambda = lambda_.Function(self, "lambda_invokes_Rekognition",
-                                              runtime=lambda_.Runtime.PYTHON_3_8,
+                                              runtime=lambda_.Runtime.PYTHON_3_13,
                                               handler="lambda_function.lambda_handler",
                                               code=lambda_.Code.from_asset("./lambdas_code/lambda_invokes_rekognition"),
                                               timeout=Duration.seconds(300),description = "Invokes Amazon Rekognition",
@@ -180,7 +180,7 @@ scan_video_lambda.add_to_role_policy(iam.PolicyStatement(
 
 ```python
 process_result_lambda = lambda_.Function(self, "lambda_process_rekognition",
-                                                  runtime=lambda_.Runtime.PYTHON_3_8,
+                                                  runtime=lambda_.Runtime.PYTHON_3_13,
                                                   handler="lambda_function.lambda_handler",
                                                   timeout=Duration.seconds(300),description = "Process Amazon Rekognition ",
                                                   code=lambda_.Code.from_asset("./lambdas_code/lambda_process_rekognition"),
@@ -363,6 +363,15 @@ cdk destroy
 - [Get Started](https://aws.amazon.com/es/codewhisperer/resources/)
 - [Dive deep with a workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/a33a5d69-1417-4d5f-acc9-ae5c7fba665b/en-US)
 - [Learn how to build an event-driven  serverless app](https://youtu.be/8vkHLnhIFGA?si=PQQjt4egDioq22YN)
+
+----
+
+## Actualización (noviembre 2026)
+
+- Runtime de las Lambdas: `python3.8` (deprecado el 14-10-2024) → `python3.13`, también en los fragmentos de código de este README.
+- `aws-cdk-lib` 2.94.0 → 2.277.0.
+- Verificado con `cdk synth` e importando los handlers con Python 3.13. Fechas de deprecación: [Lambda runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el).
+- AWS CodeWhisperer pasó a formar parte de [Amazon Q Developer](https://aws.amazon.com/q/developer/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el); los pasos de este repo describen la experiencia original de 2023.
 
 ----
 

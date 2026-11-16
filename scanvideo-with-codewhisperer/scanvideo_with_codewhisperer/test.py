@@ -43,7 +43,7 @@ class ScanvideoWithCodewhispererStack(Stack):
         #code to define a lamnbda function in cdk to scan video
         function = aws_lambda.Function(
             self, "ScanvideoWithCodewhispererFunction",
-            runtime=aws_lambda.Runtime.PYTHON_3_7,
+            runtime=aws_lambda.Runtime.PYTHON_3_13,
             handler="scanvideo_with_codewhisperer.lambda_handler",
             code=aws_lambda.Code.asset("./scanvideo_with_codewhisperer"),
             environment={
@@ -71,7 +71,7 @@ class ScanvideoWithCodewhispererStack(Stack):
         #code to create a cdk lambda function to scan video
         function2 = aws_lambda.Function(
             self, "ScanvideoWithCodewhispererFunction2",
-            runtime=aws_lambda.Runtime.PYTHON_3_7,
+            runtime=aws_lambda.Runtime.PYTHON_3_13,
             handler="scanvideo_with_codewhisperer.lambda_handler2",
             code=aws_lambda.Code.asset("./scanvideo_with_codewhisperer"),
             environment={
